@@ -1,0 +1,56 @@
+- name: create ec2 instance and configure route53
+  hosts: local
+  connection: local
+  vars:
+    ami_id: ami-0220d79f3f480ecf5
+    sg_id: sg-06b6b91b959b0f8d8
+    zone_id: Z028151432MT6NLGG3PXL
+    domain_name: "wasdaws.shop"
+    instances:
+    # we can pass multiple instances via command line using -e instances="['frontend','catalogue']"
+    # - mongodb
+    # - redis
+    # - mysql
+    # - rabbitmq
+
+  tasks:  
+    - name: create EC2 Instance
+      amazon.aws.ec2_instance:
+        name: "{{ item }}"
+        instance_type: t3.micro
+        security_group: "{{ sg_id }}"
+        image_id: "{{ ami_id }}"
+        tags:
+          Name: "{{ item }}"
+      loop: "{{ instances }}"
+      register: ec2_info
+
+    - name: Print EC2 Info
+      ansible.builtin.debug:
+        msg: "{{ ec2_info }}"
+
+    - name: Add Route53 Record
+      amazon.aws.route53:
+        state: present
+        zone: "{{ domain_name }}"
+        record: "{{item.item}}.{{ domain_name }}"
+        type: A
+        ttl: 1
+        value: "{{ item.instances[0].private_ip_address }}"
+        overwrite: yes
+      loop: "{{ ec2_info.results }}"
+
+    
+    - name: Add Route 53 record for frontend
+      amazon.aws.route53:
+        state: present
+        zone: "{{ domain_name }}"
+        record: "{{ domain_name }}"
+        type: A
+        ttl: 1
+        value: "{{ item.instances[0].public_ip_address }}"
+        overwrite: yes
+      when: item.item == "frontend"
+      loop: "{{ ec2_info.results }}"
+      
+
