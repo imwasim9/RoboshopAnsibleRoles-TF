@@ -8,7 +8,7 @@
 - name: nodejs installation and its dependencies
   ansible.builtin.include_role:
     name: common
-    tasks_from: nodejs_yaml
+    tasks_from: nodejs.yaml
   tags:
   - deployment
 
