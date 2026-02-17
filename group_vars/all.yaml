@@ -1,9 +1,9 @@
-MONGODB_HOST: mongodb.wasdaws.shop
-REDIS_HOST: redis.wasdaws.shop
-CATALOGUE_HOST: catalogue.wasdaws.shop
-CART_HOST: cart.wasdaws.shop
-USER_HOST: user.wasdaws.shop
-RABBITMQ_HOST: rabbitmq.wasdaws.shop
-MYSQL_HOST: mysql.wasdaws.shop
-SHIPPING_HOST: shipping.wasdaws.shop
-PAYMENT_HOST: payment.wasdaws.shop
+MONGODB_HOST: mongodb-{{ env }}.wasdaws.shop
+REDIS_HOST: redis-{{ env }}.wasdaws.shop
+CATALOGUE_HOST: catalogue-{{ env }}.wasdaws.shop
+CART_HOST: cart-{{ env }}.wasdaws.shop
+USER_HOST: user-{{ env }}.wasdaws.shop
+RABBITMQ_HOST: rabbitmq-{{ env }}.wasdaws.shop
+MYSQL_HOST: mysql-{{ env }}.wasdaws.shop
+SHIPPING_HOST: shipping-{{ env }}.wasdaws.shop
+PAYMENT_HOST: payment-{{ env }}.wasdaws.shop
