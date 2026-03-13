@@ -4,6 +4,7 @@
   vars:
     ami_id: ami-0220d79f3f480ecf5
     sg_id: sg-001553f01d33a8c2b
+    zone_id: "Z0409288X9ABET7Z2MA1"
     domain_name: "wasdaws.shop"
     instances:
     # we can pass multiple instances via command line using -e instances="['frontend','catalogue']"
