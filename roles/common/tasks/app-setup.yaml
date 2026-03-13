@@ -22,7 +22,7 @@
     state: absent
 
 
-- name: Download application to temp folder
+- name: Download {{ component }} to temp folder
   ansible.builtin.get_url:
     url: https://roboshop-artifacts.s3.amazonaws.com/{{ component }}-v3.zip
     dest: /tmp/{{ component }}.zip
